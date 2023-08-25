@@ -29,8 +29,8 @@ The steps are easily done, and you just follow the `TODO` in one or two files!
     1. Clone this repo locally
     2. Add your algorithm by editing the **`./process.py`** file
     3. Submit your algorithm by
-        - either linking a **private** repo let GC build the container in the cloud
-        - or use `./export.sh` to create a `tar.gz` of your docker container and upload to GC
+        - (recommended) use `./export.sh` to create a `tar.gz` of your docker container and upload to GC
+        - or link a _private_ repo let GC build the container in the cloud
         - GC documentation on the above two options: [how to deploy your container](https://grand-challenge.org/documentation/test-and-deploy-your-container/)
 
 
