@@ -59,7 +59,7 @@ The steps are easily done, and you just follow the `TODO` in one or two files!
 ### Clone this repo
 
 If you want to use this repo as a base, first clone this repo locally.
-Optionally, if you intend to submit your algorithm by [linking a private GitHub repo](https://grand-challenge.org/documentation/linking-a-github-repository-to-your-algorithm/), you can follow these [steps](https://grand-challenge.org/documentation/clone-a-repository-from-a-challenge-baseline-algorithm/) to set up a private repo.
+(_Optionally, if you intend to submit your algorithm by linking a private GitHub repo, you can follow these [steps to clone and set up a private repo](https://grand-challenge.org/documentation/clone-a-repository-from-a-challenge-baseline-algorithm/)._)
 
 
 ### Edit `./process.py`
