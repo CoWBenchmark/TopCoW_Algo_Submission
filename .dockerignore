@@ -1,0 +1,7 @@
+test/
+.git/
+*.tar.gz
+imagesTs/
+.github/
+docs/
+__pycache__/
