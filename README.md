@@ -1,51 +1,58 @@
-# TopCoW Algorithm Submit Tempalte 🐮
+# TopCoW24 Algorithm Submission Template 🐮
 
- **Algorithm submission template** repo for the [**TopCoW2023 challenge**](https://topcow23.grand-challenge.org/) on grand-challnge (GC).
- The source code for the algorithm container was generated with `evalutils` version `0.4.2` using `Python 3.10`,
- and is specified to work with the GC algorithm submission system.
+This repo is the **algorithm submission template** for the [**TopCoW2024 challenge**](https://topcow24.grand-challenge.org/) on grand-challnge (GC).
 
-![overview-of-what-we-need](./docs/GC_TopCoWAlgorithm_4SubmissionPorts.png)
-^Overview diagram in [PDF](./docs/GC_TopCoWAlgorithm_4SubmissionPorts-1.pdf)
+There are three sub-folders, `task-{1,2,3}-X`, for the three tasks of the challenge.
+Each sub-folder generates its own algorithm container, and is specified to work with the GC algorithm submission system.
 
-## TLDR
+Please read the instructions below and in the respective task sub-folder, and modify the relevant parts of the code to submit your algorithm.
 
-* **If you want more flexibility (i.e. customize this repo beyond `process.py` file or not using this template repo and `evalutils` at all)**, then simply ensure that your docker container can:
+## Important Notes
+
+* **If you want more flexibility (i.e. customize this repo beyond `your_algorithm.py` files or not using this template repo at all)**, then simply ensure that your docker container can:
   1. read from the input interface that supplies **two `.mha` images**:
 
         > Head MR Angiography (Image) at **`/input/images/head-mr-angio/<uuid>.mha`**
         >
         > Head CT Angiography (Image) at **`/input/images/head-ct-angio/<uuid>.mha`**
 
-  2. write to the output interface **one `.mha` segmentation mask** depending on the task selected (binary or multi-class segmentation):
+  2. write to the output interface **one `.mha` segmentation mask, one `.json` bounding box or one `.json` edge classification** depending on the task selected:
 
-        > Circle of Willis Binary Segmentation (Segmentation) to **`/output/images/cow-binary-segmentation/<uuid>.mha`**
+        > Task 1: Circle of Willis Multi-class Segmentation (Segmentation) to **`/output/images/cow-multiclass-segmentation/<uuid>.mha`**
         >
-        > Circle of Willis Multiclass Segmentation (Segmentation) to **`/output/images/cow-multiclass-segmentation/<uuid>.mha`**
+        > Task 2: Circle of Willis Bounding Box (Json) to **`/output/cow-roi.json`**
+        >
+        > Task 3: Circle of Willis Edge Classification (Json) to **`/output/cow-ant-post-classification.json`**
 
 
-* **If you are new to the GC submission system**, we recommend that you clone this repo locally and use it as a template, **which only requires a few simple steps to build a submission container!**
-The steps are easily done, and you just follow the `TODO` in one or two files!
+* **If you are new to the GC submission system**, we recommend that you clone this repo locally and use it as a template, **which only requires a few simple steps to build a submission container for each task separately!**
+The steps are easily done, and you just follow the `TODO` in one file!
 
     1. Clone this repo locally
-    2. Add your algorithm by editing the **`./process.py`** file
-    3. Submit your algorithm by
-        - (recommended) use `./export.sh` to create a `tar.gz` of your docker container and upload to GC
-        - or link a _private_ repo let GC build the container in the cloud
+    2. Choose your task and navigate to the corresponding subfolder 
+    3. Add your algorithm by editing the **`./<chosen_task_subfolder>/your_algorithm.py`** file
+    4. Submit your algorithm by
+        - either linking a **private** repo let GC build the container in the cloud
+        - or use `./<chosen_task_subfolder>/save.sh` to create a `tar.gz` of your docker container and upload to GC
         - GC documentation on the above two options: [how to deploy your container](https://grand-challenge.org/documentation/test-and-deploy-your-container/)
 
 
   For more information on **using this repo as a base, please refer to [Use This Repo as a Base](#use-this-repo-as-a-base)**
 
 
-* **Submission portal links**. We have 8 submission portals in total. Four submission portals for the validation phase, and four for the final-test phase, one for each track and task:
-    * Submit to [Validation MRA Binary](https://topcow23.grand-challenge.org/evaluation/validation-mra-binary/submissions/create/)
-    * Submit to [Validation CTA Binary](https://topcow23.grand-challenge.org/evaluation/validation-cta-binary/submissions/create/)
-    * Submit to [Validation MRA MultiClass](https://topcow23.grand-challenge.org/evaluation/validation-mra-multiclass/submissions/create/)
-    * Submit to [Validation CTA MultiClass](https://topcow23.grand-challenge.org/evaluation/validation-cta-multiclass/submissions/create/)
-    * Submit to [Final Test MRA Binary](https://topcow23.grand-challenge.org/evaluation/finaltest-mra-binary/submissions/create/)
-    * Submit to [Final Test CTA Binary](https://topcow23.grand-challenge.org/evaluation/finaltest-cta-binary/submissions/create/)
-    * Submit to [Final Test MRA MultiClass](https://topcow23.grand-challenge.org/evaluation/finaltest-mra-multiclass/submissions/create/)
-    * Submit to [Final Test CTA MultiClass](https://topcow23.grand-challenge.org/evaluation/finaltest-cta-multiclass/submissions/create/)
+* **Submission portal links**. We have 12 submission portals in total. Six submission portals for the validation phase, and six for the final-test phase, one for each track and task:
+    * Submit to [Validation CTA Task 1 Seg](https://topcow24.grand-challenge.org/evaluation/validation-cta-task-1-seg/submissions/create/)
+    * Submit to [Validation MRA Task 1 Seg](https://topcow24.grand-challenge.org/evaluation/validation-mra-task-1-seg/submissions/create/)
+    * Submit to [Validation CTA Task 2 Box](https://topcow24.grand-challenge.org/evaluation/validation-cta-task-2-box/submissions/create/)
+    * Submit to [Validation MRA Task 2 Box](https://topcow24.grand-challenge.org/evaluation/validation-mra-task-2-box/submissions/create/)
+    * Submit to [Validation CTA Task 3 Edg](https://topcow24.grand-challenge.org/evaluation/validation-cta-task-3-edg/submissions/create/)
+    * Submit to [Validation MRA Task 3 Edg](https://topcow24.grand-challenge.org/evaluation/validation-mra-task-3-edg/submissions/create/)
+    * Submit to [Final Test CTA Task 1 Seg](https://topcow24.grand-challenge.org/evaluation/finaltest-cta-task-1-seg/submissions/create/)
+    * Submit to [Final Test MRA Task 1 Seg](https://topcow24.grand-challenge.org/evaluation/finaltest-mra-task-1-seg/submissions/create/)
+    * Submit to [Final Test CTA Task 2 Box](https://topcow24.grand-challenge.org/evaluation/finaltest-cta-task-2-box/submissions/create/)
+    * Submit to [Final Test MRA Task 2 Box](https://topcow24.grand-challenge.org/evaluation/finaltest-mra-task-2-box/submissions/create/)
+    * Submit to [Final Test CTA Task 3 Edg](https://topcow24.grand-challenge.org/evaluation/finaltest-cta-task-3-edg/submissions/create/)
+    * Submit to [Final Test MRA Task 3 Edg](https://topcow24.grand-challenge.org/evaluation/finaltest-mra-task-3-edg/submissions/create/)
 
     You are free to [**submit your algorithm containers**](https://grand-challenge.org/documentation/making-a-challenge-submission/#submitting-your-algorithm-container) to any of the phases.
     Please use the validation submission portals to make sure your docker containers work as intended.
@@ -59,61 +66,15 @@ The steps are easily done, and you just follow the `TODO` in one or two files!
 ### Clone this repo
 
 If you want to use this repo as a base, first clone this repo locally.
-(_Optionally, if you intend to submit your algorithm by linking a private GitHub repo, you can follow these [steps to clone and set up a private repo](https://grand-challenge.org/documentation/clone-a-repository-from-a-challenge-baseline-algorithm/)._)
+Optionally, if you intend to submit your algorithm by [linking a private GitHub repo](https://grand-challenge.org/documentation/linking-a-github-repository-to-your-algorithm/), you can follow these [steps](https://grand-challenge.org/documentation/clone-a-repository-from-a-challenge-baseline-algorithm/) to set up a private repo.
 
+### Choose your task 
 
-### Edit `./process.py`
+Each task has its own submission portals and needs its own separate Docker containers for submission. Of course we encourage participants to take part in several or all tasks, but keep in mind that you need to **build and submit separate Docker containers for each task**. For a submission for a specific task, **navigate to the corresponding subfolder and follow the steps that are specified there**. The steps are all roughly the same for the different tasks and are outlined below.
 
-You can then adapt the `MyCoWSegAlgorithm` class in the `process.py` file. We have marked to most relevant parts you need to change with **`TODO`**.
+### Edit `your_algorithm.py`
 
-**Only three parts need `TODO` actually**:
-
-1. Specify the `track` and `trask`
-2. Set up your model in `__init__`
-3. Run your inference and return us numpy prediction mask in `predict()`
-
-Simply specify `track` and `task` on top of the `process.py` file:
-
-```python
-# TODO: First, choose your track and task!
-# track is either TRACK.CT or TRACK.MR
-# task is either TASK.BINARY_SEGMENTATION or TASK.MULTICLASS_SEGMENTATION
-track = TRACK.MR
-task = TASK.BINARY_SEGMENTATION
-```
-
-Finally, in the `predict()` method, implement your inference algorithm there, and whatever you do,
-**just return us an `numpy array`**. We will handle the rest of the file conversion and output saving etc from there onwards.
-
-```python
-def predict(self, *, image_ct: sitk.Image, image_mr: sitk.Image) -> np.array:
-    """
-    Inputs will be a pair of CT and MR .mha SimpleITK.Images
-    Output is supposed to be an numpy array in (x,y,z)
-    """
-
-    # TODO: place your own prediction algorithm here
-    model.predict(image_ct)
-    ...
-    # END OF TODO
-
-    # return prediction array
-    return pred_array
-```
-
-#### Requirement for `predict()` output array shape
-
-For each test case the output of your algorithm must be a prediction array either for the CT or the MR image (depending on the track) and either binary or multi-class (depending on the task).
-
-Your predictions are only evaluated within the ROI containing the CoW. In order for the ROIs of your predictions and the ground-truths to match, it's important that **your output mask array must have the same shape as the input image of the modality of the track you submit for**.
-
-```python
-# under the hood in our base_algorithm.py
-# your pred_array needs to pass this test
-assert (
-    main_input.GetSize() == pred_array.shape
-)
-```
+For the chosen task you can then adapt the `your_algorithm.py` file. We have marked to most relevant parts you need to change with **`TODO`**.
 
 ### Testing and deploying Docker container
 
@@ -128,38 +89,25 @@ Make the necessary changes to the `Dockerfile`:
 COPY --chown=user:user <somefile> /opt/app/
 ```
 
-#### Build
-
-Once your scripts are ready, you can build the container by `bash build.sh` to test if all dependencies are met.
-
 #### **Test your container!**
 
-**Highly recommended to test your container by `bash test.sh` locally**. This will mimic the GC docker running environment and input to your docker container any mha files you provide in the `input` folder. It will check the output predictions against what you provide in `./test/expected_output/`:
+**Highly recommended to test your container by `bash test_run.sh` locally**. This will mimic the GC docker running environment and input to your docker container any mha files you provide in the `./<chosen_task_subfolder/test/input` folder. 
 
-```bash
-# TODO: Provide the expected output segmentation mask of your algorithm in ./test/expected_output/
-# TODO: In the python code snippet below change the following if necessary:
-
-TASK="binary"  # "binary" or "multiclass"
-IMAGE_FILENAME="uuid_of_mr_whole_066.mha"
-EXPECTED_SEG_MASK="topcow_mr_whole_066_testdocker_bin_seg.mha"
-```
-
-**Feel free to change the pair of test images in `test/input/images/head-ct-angio/` and `test/input/images/head-mr-angio/`, and the corresponding expected output in `test/expected_output` to validate your algorithm works as intended**.
+**Feel free to change the pair of test images in `./<chosen_task_subfolder/test/input/images/head-ct-angio/` and `./<chosen_task_subfolder/test/input/images/head-mr-angio/`.
 
 **Note:** the scripts work on a case-by-case basis. So, there should only be 1 CT image and 1 MR image in the corresponding input folders.
 
-Currently, you find `test/input/images/head-ct-angio/uuid_of_ct_whole_066.mha` and `test/input/images/head-mr-angio/uuid_of_mr_whole_066.mha` in the input folder and the corresponding outputs from our dummy algorithm in `test/expected_output/topcow_mr_whole_066_testdocker_bin_seg.mha`
+Currently, you find `uuid_of_ct_whole_066.mha` and `uuid_of_mr_whole_066.mha` in the input folder.
 
 ### Export and Deploy
 
-If you choose to upload your container to GC directly (instead of linking a private Github repo, see above TLDR), then run `export.sh` to package your docker container image. This will create a `.tar.gz` file ready for upload to one of our GC submission portals.
+If you choose to upload your container to GC directly (instead of linking a private Github repo, see above TLDR), then run `save.sh` to package your docker container image. This will create a `.tar.gz` file ready for upload to one of our GC submission portals.
 
-**NOTE: it is a good idea to rename the default generated file with a more informative name, since we have 2 tracks and 2 tasks:**
+**NOTE: it is a good idea to rename the default generated file with a more informative name, since we have 2 tracks and 3 tasks:**
 
 ```bash
-# e.g. for track MR, task multi-seg:
-mv algo_docker_<date>.tar.gz <some_info>_<track><task>_<date>.tar.gz
+# e.g. for task 2:
+mv algo_docker_task-2_box_<timestamp>.tar.gz <some_info>_<track>_<task>_<timestamp>.tar.gz
 ```
 
 ### Making a Challenge Submission
@@ -174,15 +122,3 @@ _NOTE: It is recommended to use the GC to "Try Out Algorithm" first:_
 And that is it! 🤠
 All the best for the submission process.
 Please reach out to us by leaving an issue on this repo or on our challenge forum.
-
-Here is a more detailed version of this readme for your reference: [detailed_readme](./docs/detailed_readme.md)
-
-## References
-
-We are very grateful for the following challenges that provide helpful tutorials and excellent example code!
-Please have a look at these template repos if you want to deeply customize our repo or for more explanations.
-
-* MIDOG Challenge Github with tutorial: [https://github.com/DeepMicroscopy/MIDOG_reference_docker](https://github.com/DeepMicroscopy/MIDOG_reference_docker)
-* HanSeg Challenge Github with tutorial: [https://github.com/gasperpodobnik/HanSeg2023Algorithm/](https://github.com/gasperpodobnik/HanSeg2023Algorithm/)
-* CL-Dection Challenge Github with tutorial: [https://github.com/szuboy/CL-Detection2023](https://github.com/szuboy/CL-Detection2023)
-* SegRap Challenge Github with tutorial: [https://github.com/HiLab-git/SegRap2023](https://github.com/HiLab-git/SegRap2023)
