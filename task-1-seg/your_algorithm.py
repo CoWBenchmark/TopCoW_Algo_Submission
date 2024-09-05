@@ -41,7 +41,7 @@ TRACK = 'MR' # or 'CT'
 def your_segmentation_algorithm(*, mr_input_array: np.array, ct_input_array: np.array) -> np.array:
     """
     This is an example of a prediction algorithm.
-    It is a dummy algorithm that returns a zero array of the correct shape.
+    It is a dummy algorithm that returns an array of the correct shape with randomly assigned integers between 0 and 12.
     args:
         mr_input_array: np.array - input image for MR track
         ct_input_array: np.array - input image for CT track
@@ -80,6 +80,9 @@ def your_segmentation_algorithm(*, mr_input_array: np.array, ct_input_array: np.
     else:
         raise ValueError("Invalid TRACK chosen. Choose either 'MR' or 'CT'.")
     
-    pred_array = np.zeros(output_shape)
+    # Set the seed for reproducibility
+    np.random.seed(42)
+    # Randomly assign values between 0 and 12 to the array
+    pred_array = np.random.randint(0, 13, output_shape)
 
     return pred_array

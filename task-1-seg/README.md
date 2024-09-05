@@ -93,7 +93,7 @@ assert pred_array.shape == required_output_shape
 
 You can run inference locally by executing the script `inference.py`. The `inference.py` also serves as the entrypoint for the Docker container. 
 
-**NOTE: You don't need to change anything in the `inference.py` script.
+**NOTE: You don't need to change anything in the `inference.py` script.**
 
 ### Testing and deploying Docker container
 
@@ -110,13 +110,23 @@ COPY --chown=user:user <somefile> /opt/app/
 
 #### **Test your container!**
 
-**Highly recommended to test your container by `bash test_run.sh` locally**. This will mimic the GC docker running environment and input to your docker container any mha files you provide in the `./test/input` folder. 
+**Highly recommended to test your container by `bash test_run.sh` locally**. This will mimic the GC docker running environment and input to your docker container any mha files you provide in the `./test/input` folder. It will check the output predictions against what you provide in `./test/expected_output/`:
+
+```bash
+# TODO: Provide the expected output segmentation mask of your algorithm in ./test/expected_output/
+# TODO: In the python code snippet below change the following if necessary:
+
+IMAGE_FILENAME="output.mha"
+EXPECTED_SEG_MASK="expected_output_dummy_mra.mha"
+```
+
+**Feel free to change the pair of test images in `test/input/images/head-ct-angio/` and `test/input/images/head-mr-angio/`, and the corresponding expected output in `test/expected_output` to validate your algorithm works as intended**.
 
 **Feel free to change the pair of test images in `test/input/images/head-ct-angio/` and `test/input/images/head-mr-angio/`**.
 
 **Note:** the scripts work on a case-by-case basis. So, there should only be 1 CT image and 1 MR image in the corresponding input folders.
 
-Currently, you find `test/input/images/head-ct-angio/uuid_of_ct_whole_066.mha` and `test/input/images/head-mr-angio/uuid_of_mr_whole_066.mha` in the input folder.
+Currently, you find `test/input/images/head-ct-angio/example_input_dummy_cta.mha` and `test/input/images/head-mr-angio/example_input_dummy_mra.mha` in the input folder.
 
 ### Export and Deploy
 

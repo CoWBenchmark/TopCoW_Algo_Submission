@@ -4,7 +4,7 @@
 set -e
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-DOCKER_TAG="example-algorithm-validation-cta-task-3-edg"
+DOCKER_TAG="algo_docker_task-3_edg"
 DOCKER_NOOP_VOLUME="${DOCKER_TAG}-volume"
 
 INPUT_DIR="${SCRIPT_DIR}/test/input"
@@ -59,4 +59,54 @@ docker run --rm \
 
 echo "=+= Wrote results to ${OUTPUT_DIR}"
 
-echo "=+= Save this image for uploading via save.sh \"${DOCKER_TAG}\""
+###################################################################################
+# Test if the docker outputs match the expected outputs in ./test/expected_output/
+###################################################################################
+
+echo "#################################################"
+echo "##### Test 0 >>> edge classification check"
+# Compare the edge classification output from Docker with the expected edge classification
+
+docker run --rm \
+  --volume "$OUTPUT_DIR":/output \
+  --volume $SCRIPT_DIR/test/expected_output/:/expected_output/ \
+  python:3.10-slim python -c """
+import json
+import os
+
+output_path = '/output/cow-ant-post-classification.json'
+print(f'{output_path} isfile? ', os.path.isfile(output_path))
+expected_output_path = '/expected_output/cow-ant-post-classification.json'
+print(f'{expected_output_path} isfile? ', os.path.isfile(expected_output_path))
+
+with open(output_path, 'r') as f:
+    output = json.load(f)
+with open(expected_output_path, 'r') as f:
+    expected_output = json.load(f)
+
+are_equal = output == expected_output
+
+if are_equal:
+    print('[Success] The cow-ant-post-classification dictionaries are equal, Test 0 passed!')
+else:
+    print('The cow-ant-post-classification dictionaries are not equal, Test 0 failed!')
+    print('[FAIL] Test 0 has FAILED!')
+"""
+echo "#################################################"
+echo
+
+echo "#################################################"
+echo "##### Test 1 >>> /output/ folder check"
+echo -e "\n$ ls -alR /output/ \n"
+
+docker run --rm \
+        --volume "$OUTPUT_DIR":/output \
+        python:3.10-slim ls -alR /output/
+
+echo "#################################################"
+echo
+
+echo "Please make sure you pass the above 2 tests before submitting your docker"
+
+echo -e "\n=+= Save this image for uploading via save.sh \"${DOCKER_TAG}\""
+

@@ -6,12 +6,15 @@ set -e
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # Set default container name
-container_tag="example-algorithm-validation-cta-task-2-box"
+container_tag="algo_docker_task-2_box"
 
 # Check if an argument is provided
 if [ "$#" -eq 1 ]; then
     container_tag="$1"
 fi
+
+# build the container
+docker build -t "$container_tag" "$SCRIPT_DIR"
 
 # Get the build information from the Docker image tag
 build_timestamp=$( docker inspect --format='{{ .Created }}' "$container_tag")

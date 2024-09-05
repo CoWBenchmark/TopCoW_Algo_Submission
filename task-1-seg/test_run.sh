@@ -4,7 +4,7 @@
 set -e
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-DOCKER_TAG="example-algorithm-validation-cta-task-1-seg"
+DOCKER_TAG="algo_docker_task-1_seg"
 DOCKER_NOOP_VOLUME="${DOCKER_TAG}-volume"
 
 INPUT_DIR="${SCRIPT_DIR}/test/input"
@@ -69,13 +69,13 @@ echo "##### Test 0 >>> segmentation mask check"
 # TODO: In the python code snippet below change the following if necessary:
 
 IMAGE_FILENAME="output.mha"
-EXPECTED_SEG_MASK="topcow_mr_whole_066_testdocker_bin_seg.mha"
+EXPECTED_SEG_MASK="expected_output_dummy_mra.mha"
 
 echo "TODO: change IMAGE_FILENAME and EXPECTED_SEG_MASK if needed"
 
 docker run --rm \
         --volume "$OUTPUT_DIR":/output \
-        --volume $SCRIPTPATH/test/expected_output/:/expected_output/ \
+        --volume $SCRIPT_DIR/test/expected_output/:/expected_output/ \
         biocontainers/simpleitk:v1.0.1-3-deb-py3_cv1 python3 -c """
 import os
 import SimpleITK as sitk
@@ -116,6 +116,4 @@ echo
 
 echo "Please make sure you pass the above 2 tests before submitting your docker"
 
-docker volume rm "$DOCKER_NOOP_VOLUME" > /dev/null
-
-echo "=+= Save this image for uploading via save.sh \"${DOCKER_TAG}\""
+echo -e "\n=+= Save this image for uploading via save.sh \"${DOCKER_TAG}\""
