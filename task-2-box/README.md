@@ -116,11 +116,9 @@ COPY --chown=user:user <somefile> /opt/app/
 
 #### **Test your container!**
 
-**Highly recommended to test your container by `bash test_run.sh` locally**. This will mimic the GC docker running environment and input to your docker container any mha files you provide in the `./test/input` folder. It will check the predicted output `cow-roi.json` against what you provide in `./test/expected_output/cow-roi.json`:
+**Highly recommended to test your container by `bash test_run.sh` locally**. This will mimic the GC docker running environment and input to your docker container any mha files you provide in the `./test/input` folder. It will check the predicted output `cow-roi.json` against what you provide in `./test/expected_output/cow-roi.json`.
 
 **Feel free to change the pair of test images in `test/input/images/head-ct-angio/` and `test/input/images/head-mr-angio/`, and the corresponding expected output in `test/expected_output` to validate your algorithm works as intended**.
-
-**Feel free to change the pair of test images in `test/input/images/head-ct-angio/` and `test/input/images/head-mr-angio/`**.
 
 **Note:** the scripts work on a case-by-case basis. So, there should only be 1 CT image and 1 MR image in the corresponding input folders.
 

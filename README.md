@@ -32,7 +32,7 @@ The steps are easily done, and you just follow the `TODO` in one file!
     2. Choose your task and navigate to the corresponding subfolder 
     3. Add your algorithm by editing the **`./<chosen_task_subfolder>/your_algorithm.py`** file
     4. Submit your algorithm by
-        - either linking a **private** repo let GC build the container in the cloud
+        - either linking a **private** repo and let GC build the container in the cloud
         - or use `./<chosen_task_subfolder>/save.sh` to create a `tar.gz` of your docker container and upload to GC
         - GC documentation on the above two options: [how to deploy your container](https://grand-challenge.org/documentation/test-and-deploy-your-container/)
 
@@ -93,11 +93,11 @@ COPY --chown=user:user <somefile> /opt/app/
 
 **Highly recommended to test your container by `bash test_run.sh` locally**. This will mimic the GC docker running environment and input to your docker container any mha files you provide in the `./<chosen_task_subfolder/test/input` folder. 
 
-**Feel free to change the pair of test images in `./<chosen_task_subfolder/test/input/images/head-ct-angio/` and `./<chosen_task_subfolder/test/input/images/head-mr-angio/`.
+**Feel free to change the pair of test images in `./<chosen_task_subfolder/test/input/images/head-ct-angio/` and `./<chosen_task_subfolder/test/input/images/head-mr-angio/`.**
 
 **Note:** the scripts work on a case-by-case basis. So, there should only be 1 CT image and 1 MR image in the corresponding input folders.
 
-Currently, you find `uuid_of_ct_whole_066.mha` and `uuid_of_mr_whole_066.mha` in the input folder.
+Currently, you find `example_input_dummy_cta.mha` and `example_input_dummy_mra.mha` in the input folder. 
 
 ### Export and Deploy
 
