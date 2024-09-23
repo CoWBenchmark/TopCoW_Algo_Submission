@@ -1,13 +1,13 @@
 """
 The following is a simple example algorithm for task 1: CoW multi-class segmentation.
 
-It can be run locally (good for setting up and debugging your algorithm) 
+It can be run locally (good for setting up and debugging your algorithm)
 or in a docker container (required for submission to grand-challenge.org).
 
-If you use this template you can simply replace the `your_segmentation_algorithm` function with your own algorithm. 
+If you use this template you can simply replace the `your_segmentation_algorithm` function with your own algorithm.
 The suggested inputs are np.arrays of the MR and CT images respectively, the output is your segmentation prediction array.
 
-To run your algorithm, execute the `inference.py` script (inference.py is the entry point for the docker container). 
+To run your algorithm, execute the `inference.py` script (inference.py is the entry point for the docker container).
 NOTE: You don't need to change anything in the inference.py script!
 
 The relevant paths are as follows:
@@ -21,7 +21,7 @@ The relevant paths are as follows:
         Docker: resources
         Local: ./resources
 
-Before submitting to grand-challenge.org, you must ensure that your algorithm runs in the docker container. To do this, run 
+Before submitting to grand-challenge.org, you must ensure that your algorithm runs in the docker container. To do this, run
   ./test_run.sh
 This will start the inference and reads from ./test/input and outputs to ./test/output
 
@@ -32,13 +32,16 @@ To save the container and prep it for upload to Grand-Challenge.org you can call
 import numpy as np
 
 #######################################################################################
-# TODO: 
+# TODO-1:
 # Choose your TRACK. Track is either 'MR' or 'CT'.
-TRACK = 'MR' # or 'CT'
-# END OF TODO
+TRACK = "MR"  # or 'CT'
+# END OF TODO-1
 #######################################################################################
 
-def your_segmentation_algorithm(*, mr_input_array: np.array, ct_input_array: np.array) -> np.array:
+
+def your_segmentation_algorithm(
+    *, mr_input_array: np.array, ct_input_array: np.array
+) -> np.array:
     """
     This is an example of a prediction algorithm.
     It is a dummy algorithm that returns an array of the correct shape with randomly assigned integers between 0 and 12.
@@ -50,7 +53,7 @@ def your_segmentation_algorithm(*, mr_input_array: np.array, ct_input_array: np.
     """
 
     #######################################################################################
-    # TODO: place your own prediction algorithm here.
+    # TODO-2: place your own prediction algorithm here.
     # You are free to remove everything! Just return to us an npy in (x,y,z).
     # You can use the input_head_mr_angiography and/or input_head_ct_angiography
     # to make your prediction.
@@ -73,16 +76,13 @@ def your_segmentation_algorithm(*, mr_input_array: np.array, ct_input_array: np.
 
     # For now, let us set make bogus predictions
     output_shape = tuple()
-    if TRACK == 'CT':
+    if TRACK == "CT":
         output_shape = ct_input_array.shape
-    elif TRACK == 'MR':
+    elif TRACK == "MR":
         output_shape = mr_input_array.shape
     else:
         raise ValueError("Invalid TRACK chosen. Choose either 'MR' or 'CT'.")
-    
-    # Set the seed for reproducibility
-    np.random.seed(42)
-    # Randomly assign values between 0 and 12 to the array
-    pred_array = np.random.randint(0, 13, output_shape)
+
+    pred_array = np.ones(output_shape)
 
     return pred_array
