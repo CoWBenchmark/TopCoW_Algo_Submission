@@ -14,7 +14,7 @@ if [ "$#" -eq 1 ]; then
 fi
 
 # build the container
-docker build -t "$container_tag" "$SCRIPT_DIR"
+docker build --progress=plain --no-cache --platform=linux/amd64 -t "$container_tag" "$SCRIPT_DIR"
 
 # Get the build information from the Docker image tag
 build_timestamp=$( docker inspect --format='{{ .Created }}' "$container_tag")

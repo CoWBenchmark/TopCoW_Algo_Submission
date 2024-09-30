@@ -24,6 +24,8 @@ fi
 
 echo "=+= (Re)build the container"
 docker build "$SCRIPT_DIR" \
+  --progress=plain \
+  --no-cache \
   --platform=linux/amd64 \
   --tag $DOCKER_TAG 2>&1
 
