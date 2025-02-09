@@ -9,7 +9,7 @@
         >
         > Head CT Angiography (Image) at **`/input/images/head-ct-angio/<uuid>.mha`**
 
-  2. write to the output interface **one `.json` bounding box**:
+  2. write to the output interface **one `.json` edge-list**:
 
         > Circle of Willis Edge Classification (Json) to **`/output/cow-ant-post-classification.json`**
 
